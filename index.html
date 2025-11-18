@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>رحلة المدينة المنوّرة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(120deg, #1e1e2f, #2c2c42, #3a3a55),
+        url('https://images.unsplash.com/photo-1587407628354-3e4e6d2d77b7?q=80&w=1920&auto=format&fit=crop')
+        no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px;
+      animation: fadeIn 1.2s ease-in-out;
+      flex-direction: column;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 30px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: rgba(30,30,50,0.85);
+      color: #fff;
+      padding: 40px 50px;
+      border-radius: 25px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 40px rgba(0, 150, 255, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 50px rgba(0, 150, 255, 0.7);
+    }
+
+    .card.small {
+      flex: 1;
+      min-width: 300px;
+      max-width: 550px;
+    }
+
+    .card.large {
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      color: #00bfff;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1affd5;
+      margin-bottom: 25px;
+    }
+
+    p.note {
+      color: #1affd5;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    ul {
+      text-align: right;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #e6f3ff;
+      list-style: none;
+      padding-right: 0;
+    }
+
+    ul li::before {
+      content: "• ";
+      color: #00bfff;
+    }
+
+    label {
+      display: block;
+      text-align: right;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      background: rgba(255,255,255,0.2);
+      box-shadow: 0 0 10px #00bfff;
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    option {
+      color: #000;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(90deg, #004080, #0066cc);
+      color: #fff;
+      font-weight: 900;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(0, 102, 204, 0.6);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(0, 102, 204, 0.9);
+    }
+
+    .message {
+      display: none;
+      margin-top: 25px;
+      padding: 16px;
+      border-radius: 15px;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .message.success {
+      background: rgba(0, 102, 204, 0.25);
+    }
+
+    .message.error {
+      background: rgba(255, 0, 0, 0.25);
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    .important-note {
+      background: rgba(255, 0, 0, 0.15);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      color: #ffcccc;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    /* راديو الموافقة */
+    .agree-box {
+      background: rgba(255,255,255,0.08);
+      padding: 12px 15px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      text-align: right;
+    }
+
+    .agree-box label {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #1affd5;
+    }
+
+    .agree-box div {
+      margin: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+    }
+
+    .agree-box input {
+      width: auto;
+      margin: 0;
+    }
+
+    /* نص التواصل أسفل النموذج وفوق الحقوق */
+    .contact-text-bottom {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #1affd5;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .contact-text-bottom a {
+      color: #1affd5;
+      text-decoration: none;
+    }
+
+    .contact-text-bottom a:hover {
+      text-decoration: underline;
+      color: #00e0ff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- العنوان العلوي -->
+  <div style="text-align: center; color: #fff; margin-bottom: 30px; margin-top:70px;">
+    <h1 style="font-size: 38px; font-weight: 900; color: #00bfff; text-shadow: 0 0 15px rgba(0,0,0,0.8); margin-bottom: 10px;">
+       رحلة إلى المدينة المنوّرة
+    </h1>
+    <h2 style="font-size: 22px; font-weight: 700; color: #1affd5;">
+      برعاية:
+    </h2>
+  </div>
+
+  <div class="main-container">
+    <!-- المحتوى -->
+    <div class="top-row">
+      <div class="card small">
+        <h1>🕌 تفاصيل الرحلة</h1>
+        <ul>
+          <li><strong>الوجهة:</strong> المدينة المنوّرة</li>
+          <li><strong>تاريخ الرحلة:</strong> الأربعاء 26 نوفمبر 2025</li>
+          <li><strong>وقت التجمع:</strong>---</li>
+          <li><strong>العودة:</strong>---</li>
+          <li><strong>السعر:</strong>---</li>
+          <li><strong>الأنشطة:</strong>---</li>
+        </ul>
+        <p class="note">📍 يُرجى الالتزام بالمواعيد المحددة</p>
+      </div>
+
+      <div class="card small">
+        <h1>🎒 المطلوب إحضاره</h1>
+        <ul>
+          <li>صورة من الهوية أو التأشيرة أو جواز السفر أو بطاقة الإقامة</li>
+          <li>---</li>
+          <li>---</li>
+          <li>---</li>
+          <li>---</li>
+          <li>---</li>
+        </ul>
+        <p class="note">✅ لا تنسَ النية الطيبة 🌿</p>
+      </div>
+    </div>
+
+    <div class="card large">
+      <h1>📝 تسجيل الرحلة</h1>
+      <p class="important-note">🔔 ملاحظة هامة: يتم التسجيل من خلال <strong>ولي أمر الطالب فقط</strong>.</p>
+      <p class="note">ملاحظة: الدفع في المسجد</p>
+
+      <form id="madinaForm">
+
+        <div style="flex:1; min-width:250px; text-align:right; margin-bottom:15px;">
+          <label for="isGuardian">هل أنت ولي أمر الطالب؟</label>
+          <select id="isGuardian" name="isGuardian" required>
+            <option value="">اختر الإجابة</option>
+            <option value="نعم">نعم، أنا ولي أمر الطالب</option>
+            <option value="لا">لا، لست ولي أمر الطالب</option>
+          </select>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+          <div style="flex:1; min-width:250px;">
+            <label for="studentName">اسم الطالب</label>
+            <input type="text" id="studentName" name="studentName" placeholder="اكتب اسم الطالب" required />
+          </div>
+
+          <div style="flex:1; min-width:250px;">
+            <label for="parentName">اسم ولي الأمر</label>
+            <input type="text" id="parentName" name="parentName" placeholder="اكتب اسم ولي الأمر" required />
+          </div>
+
+          <div style="flex:1; min-width:250px;">
+            <label for="phone">رقم الجوال</label>
+            <input type="tel" id="phone" name="phone" placeholder="05xxxxxxxx" required />
+          </div>
+
+          <div style="flex:1; min-width:250px;">
+            <label for="idNumber">رقم الإقامة / التأشيرة / جواز السفر</label>
+            <input type="text" id="idNumber" name="idNumber" placeholder="اكتب الرقم هنا" required />
+          </div>
+        </div>
+
+        <!-- الموافقة/الرفض -->
+        <div class="agree-box">
+          <label>هل توافق على اشتراك ابنك في الرحلة؟</label>
+
+          <div>
+            <input type="radio" name="agreement" value="agree" id="agree">
+            <span>نعم، أوافق</span>
+          </div>
+
+          <div>
+            <input type="radio" name="agreement" value="disagree" id="disagree">
+            <span>لا، لا أوافق</span>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button type="submit">تسجيل</button>
+        </div>
+
+      </form>
+
+      <div class="message" id="responseMessage"></div>
+
+      <!-- نص التواصل أسفل النموذج وفوق الحقوق -->
+      <div class="contact-text-bottom">
+        للتواصل والاستفسار:
+        <span>📞 <a href="tel:+966555240263">أستاذ النشاط: 966555240263+</a></span> |
+        <span>💻 <a href="tel:+966502069445">منشئ الموقع: 966502069445+</a></span>
+      </div>
+
+      <div class="footer">
+        &copy; جميع الحقوق محفوظة للأزهري لإنشاء الصفح والمواقع الإلكترونية
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const form = document.getElementById('madinaForm');
+  const responseMessage = document.getElementById('responseMessage');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const isGuardian = document.getElementById('isGuardian').value;
+
+    if (isGuardian !== "نعم") {
+      responseMessage.className = "message error";
+      responseMessage.style.display = 'block';
+      responseMessage.innerHTML = "❌ عذرًا، لا يمكن إتمام التسجيل إلا من خلال <strong>ولي أمر الطالب</strong>.";
+      window.scrollTo({top: form.offsetTop - 100, behavior: 'smooth'});
+      return;
+    }
+
+    const agreement = document.querySelector('input[name="agreement"]:checked');
+
+    if (!agreement) {
+      responseMessage.className = "message error";
+      responseMessage.style.display = 'block';
+      responseMessage.innerHTML = "❌ يجب اختيار أحد الخيارين: الموافقة أو عدم الموافقة.";
+      window.scrollTo({top: form.offsetTop - 100, behavior: 'smooth'});
+      return;
+    }
+
+    const studentName = document.getElementById('studentName').value;
+    const parentName = document.getElementById('parentName').value;
+    const phone = document.getElementById('phone').value;
+    const idNumber = document.getElementById('idNumber').value;
+
+    if (agreement.value === "disagree") {
+      const rejectMessage =
+`🚫 تم رفض اشتراك الطالب في الرحلة
+
+تفاصيل التسجيل:
+- اسم الطالب: ${studentName}
+- اسم ولي الأمر: ${parentName}
+- رقم الجوال: ${phone}
+- رقم الهوية/الإقامة/الجواز: ${idNumber}
+- لم تتم الموافقة على مشاركة الطالب في الرحلة
+- التسجيل تم عبر ولي الأمر`;
+
+      const encodedReject = encodeURIComponent(rejectMessage);
+      const rejectURL = `https://wa.me/966555240263?text=${encodedReject}`;
+
+      responseMessage.className = "message error";
+      responseMessage.style.display = 'block';
+      responseMessage.innerHTML =
+      `🚫 لقد اخترت <strong>عدم الموافقة</strong>.<br>
+      <a href="${rejectURL}" target="_blank" style="color:#fff; text-decoration:underline;">إرسال رسالة الرفض على الواتساب</a>`;
+
+      window.open(rejectURL, '_blank');
+      window.scrollTo({top: form.offsetTop - 100, behavior: 'smooth'});
+      return;
+    }
+
+    const messageText = 
+`تم التسجيل بنجاح ✅
+
+تفاصيل التسجيل:
+- اسم الطالب: ${studentName}
+- اسم ولي الأمر: ${parentName}
+- رقم الجوال: ${phone}
+- رقم الهوية/الإقامة/الجواز: ${idNumber}
+- تمت الموافقة على اشتراك الطالب في الرحلة
+- التسجيل تم عبر ولي الأمر
+- الدفع في المسجد`;
+
+    const encodedMessage = encodeURIComponent(messageText);
+    const whatsappURL = `https://wa.me/966555240263?text=${encodedMessage}`;
+
+    responseMessage.className = "message success";
+    responseMessage.style.display = 'block';
+    responseMessage.innerHTML =
+    `تم تسجيلك بنجاح ✅<br>
+    <a href="${whatsappURL}" target="_blank" style="color:#fff; text-decoration:underline;">إرسال التفاصيل على واتساب</a>`;
+
+    form.reset();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    window.open(whatsappURL, '_blank');
+  });
+  </script>
+
+</body>
+</html>
